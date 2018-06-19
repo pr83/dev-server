@@ -1,0 +1,14 @@
+ports:
+  - "11443:443"
+  - "1180:80"
+  - "1122:22"
+baseDir: /srv/gitlab
+backup: {}
+baseUrl: gitlab.example.com
+smtp:
+  hostname: mail.example.com
+  domain: example.com
+  port: 465
+  user: admin@example.com
+  password: Pas$$w0rd
+  useTls: true

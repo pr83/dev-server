@@ -1,0 +1,16 @@
+- name: Users exist
+  user:
+    name: "{{ item }}"
+    shell: "/bin/bash"
+  with_items:
+    "{{ users }}"
+
+- name: Users  sudoers
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: "^{{ item }}"
+    line: "{{ item }} ALL=(ALL:ALL) ALL"
+    validate: "visudo -cf %s"
+  with_items:
+    "{{ users }}"

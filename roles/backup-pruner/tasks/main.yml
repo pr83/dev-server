@@ -1,0 +1,25 @@
+- name: Container is running
+  docker_container:
+    image: "{{ image }}"
+    name: backup-pruner
+    state: started
+    privileged: yes
+    env:
+      OPTIMAL_COUNT_CONFIG: "{{ optimalCountConfig }}"
+      STORAGE_TYPE: "{{ storageType }}"
+      S3_ACCESS_KEY: "{{ s3AccessKey }}"
+      S3_SECRET_KEY: "{{ s3SecretKey }}"
+      S3_BUCKET: "{{ s3Bucket }}"
+      SCAN_INTERVAL: "{{ scanInterval }}"
+      SEND_EMAIL: "{{ sendEmail }}"
+      LONGEST_DELAY_BETWEEN_EMAILS: "{{ longestDelayBetweenEmails }}"
+      SMTP_HOSTNAME: "{{ smtpHostname }}"
+      SMTP_PORT: "{{ smtpPort }}"
+      SMTP_DOMAIN: "{{ smtpDomain }}"
+      SMTP_USER: "{{ smtpUser }}"
+      SMTP_PASSWORD: "{{ smtpPassword }}"
+      SMTP_ENABLE_SSL: "{{ smtpEnableSsl }}"
+      EMAIL_FROM: "{{ emailFrom }}"
+      EMAIL_TO: "{{ emailTo }}"
+      EMAIL_SUBJECT: "{{ emailSubject }}"
+      DO_PRUNE: "{{ doPrune }}"

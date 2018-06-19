@@ -1,0 +1,3 @@
+proxyHostname: example.com
+proxyHttpsPort: 443
+servers: []

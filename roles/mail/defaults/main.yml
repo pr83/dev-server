@@ -1,0 +1,19 @@
+image: tvial/docker-mailserver:latest
+
+hostname: mail.localhost
+
+adminUser: admin
+
+accounts:
+  - user: admin
+    password: admin
+
+ports:
+  - "{{sslSmtpClientPort}}:465"
+  - "{{sslImapPort}}:993"
+  - "{{smtpOtherMailServersPort}}:25"
+
+volumes:
+  - "/srv/mail/data:/var/mail"
+  - "/srv/mail/state:/var/mail-state"
+  - "/srv/mail/config:/tmp/docker-mailserver"

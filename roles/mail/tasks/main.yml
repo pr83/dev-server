@@ -1,0 +1,17 @@
+- name: Admin user created
+  shell: "docker run -v /srv/mail/config:/tmp/docker-mailserver --entrypoint /usr/local/bin/addmailuser {{image}} {{item.user}}@{{domainname}} {{item.password}} || echo error"
+  no_log: true
+  with_items: "{{accounts}}"
+
+- name: Container is running
+  docker_container:
+    image: "{{image}}"
+    name: mail
+    state: started
+    published_ports: "{{ ports }}"
+    volumes: "{{ volumes }}"
+    restart_policy: always
+    hostname: "{{hostname}}.{{domainname}}"
+    env:
+      ENABLE_POP3: 1
+      POSTMASTER_ADDRESS: "{{adminUser}}@{{domainname}}"

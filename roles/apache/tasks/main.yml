@@ -1,0 +1,12 @@
+- name: Installed
+  apt:
+    name: apache2
+    update_cache: yes
+
+- name: Project directories exist
+  file:
+    path: "/var/www/html/{{ item }}"
+    state: directory
+    owner: www-data
+    group: www-data
+  with_items: "{{ directories }}"

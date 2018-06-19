@@ -1,0 +1,26 @@
+- name: Dockerfile exists
+  copy:
+    src: docker/
+    dest: /tmp/nginx-docker/
+
+- name: Dockerfile exists - configuration
+  template:
+    src: docker/conf/includes/server.conf
+    dest: /tmp/nginx-docker/config/includes/{{ item.name }}.conf
+  with_items:
+    "{{ servers }}"
+
+- name: Docker image built
+  docker_image:
+    name: any3w.com/nginx
+    path: /tmp/nginx-docker/
+    state: present
+    force: yes
+
+- name: Container is running
+  docker_container:
+    image: any3w.com/nginx
+    name: nginx
+    state: started
+    published_ports: "{{ proxyHttpsPort }}:443"
+    restart_policy: always

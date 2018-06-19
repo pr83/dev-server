@@ -1,0 +1,83 @@
+- name: Dockerfile directory exists
+  file:
+    path: /tmp/gitlab-docker
+    state: directory
+
+- name: Dockerfile exists
+  copy:
+    src: docker/Dockerfile
+    dest: /tmp/gitlab-docker/Dockerfile
+
+- name: Docker image built
+  docker_image:
+    name: any3w.com/gitlab
+    path: /tmp/gitlab-docker
+    state: present
+    force: yes
+
+- name: Container is running
+  docker_container:
+    image: any3w.com/gitlab
+    name: gitlab
+    state: started
+    published_ports: "{{ ports }}"
+    volumes:
+      - "{{ baseDir }}/config:/etc/gitlab"
+      - "{{ baseDir }}/logs:/var/log/gitlab"
+      - "{{ baseDir }}/data:/var/opt/gitlab"
+      - "{{ baseDir }}/ssmtp:/etc/ssmtp"
+    restart_policy: always
+  tags: [gitlab]
+
+- name: Gitlab configured
+  template:
+    src: gitlab.rb
+    dest: /srv/gitlab/config/gitlab.rb
+  with_items:
+    - backup: "{{ backup }}"
+      baseUrl: "{{ baseUrl }}"
+  no_log: true
+    
+- name: Backups configured for reboot
+  cron:
+    name: "gitlab_backups_on_reboot"
+    minute: "50"
+    hour: "1"
+    job: "docker exec -t gitlab gitlab-rake gitlab:backup:create"
+    
+- name: Regular backups configured
+  cron:
+    name: "regular_gitlab_backups"
+    special_time: reboot
+    job: "docker exec -t gitlab gitlab-rake gitlab:backup:create"
+
+- name: Restore from backup script present
+  copy:
+    src: restore.sh
+    dest: /srv/gitlab
+
+- name: Fully up and running - triggering restore is safe
+  shell: until docker exec gitlab gitlab-rake gitlab:check; do sleep 1; done
+  when: gitlabRestoreDir is defined and gitlabRestoreFrom is defined
+
+- name: Restore file present
+  copy:
+    src: "{{ gitlabRestoreDir }}/{{ gitlabRestoreFrom }}_gitlab_backup.tar"
+    dest: /srv/gitlab/data/backups
+  when: gitlabRestoreDir is defined and gitlabRestoreFrom is defined
+
+- name: Restored from backups
+  shell: "/srv/gitlab/restore.sh {{ gitlabRestoreFrom }} > /srv/gitlab/logs/restore.log 2>&1"
+  when: gitlabRestoreDir is defined and gitlabRestoreFrom is defined
+
+- name: SSMTP configuration present
+  template:
+    src: ssmtp.conf
+    dest: /srv/gitlab/ssmtp
+  with_items:
+    - hostname: "{{ smtp.hostname }}"
+      port: "{{ smtp.port }}"
+      domain: "{{ smtp.domain }}"
+      user: "{{ smtp.user }}"
+      password: "{{ smtp.password }}"
+      useTls: "{{ smtp.useTls }}"

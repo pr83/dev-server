@@ -1,0 +1,72 @@
+- name: Dockerfile directory exists
+  file:
+    path: /tmp/jenkins-docker
+    state: directory
+
+- name: Dockerfile exists
+  copy:
+    src: docker/Dockerfile
+    dest: /tmp/jenkins-docker/Dockerfile
+
+- name: Dockerfile exists - default-user.groovy
+  copy:
+    src: docker/default-user.groovy
+    dest: /tmp/jenkins-docker/default-user.groovy
+
+- name: Docker image built
+  docker_image:
+    name: any3w.com/jenkins
+    path: /tmp/jenkins-docker
+    state: present
+    force: yes
+
+- name: Data directory exists
+  file:
+    path: /srv/jenkins/data
+    state: directory
+
+- name: Init scripts directory exists with right permissions
+  file:
+    path: /srv/jenkins/data/init.groovy.d
+    state: directory
+
+- name: Jobs directory exists with right permissions
+  file:
+    path: /srv/jenkins/data/jobs
+    state: directory
+
+- name: Credentials exist
+  template:
+    src: init.groovy.d/credentials.groovy
+    dest: /srv/jenkins/data/init.groovy.d/credentials.{{ item.id }}.groovy
+  with_items:
+    "{{ credentials }}"
+  no_log: true
+
+- name: Projects directories exist
+  file:
+    path: /srv/jenkins/data/jobs/{{ item.name }}
+    state: directory
+  with_items:
+    "{{ projects }}"
+
+- name: Projects config exist
+  template:
+    src: jobs/project.xml
+    dest: /srv/jenkins/data/jobs/{{ item.name }}/config.xml
+  with_items:
+    "{{ projects }}"
+
+- name: Container is running
+  docker_container:
+    image: any3w.com/jenkins
+    name: jenkins
+    state: started
+    published_ports: "{{ ports }}"
+    volumes: "{{ volumes }}"
+    restart_policy: always
+    restart: yes
+    env:
+      JENKINS_USER: "{{ jenkinsUsername }}"
+      JENKINS_PASS: "{{ jenkinsPassword }}"
+  tags: [jenkins]

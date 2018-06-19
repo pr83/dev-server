@@ -1,0 +1,12 @@
+ports:
+  - "1280:8080"
+
+volumes:
+  - /srv/jenkins/data:/var/jenkins_home
+  
+jenkinsUsername: admin
+jenkinsPassword: admin
+
+credentials: []
+
+projects: []

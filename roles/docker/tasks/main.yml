@@ -1,0 +1,23 @@
+- name: Check if Docker is installed
+  command: dpkg-query -W docker-ce
+  register: docker_check_deb
+  failed_when: docker_check_deb.rc > 1
+  changed_when: docker_check_deb.rc == 1
+
+- name: Download Docker
+  get_url:
+    url="{{ packageUrlBase }}/{{ packageFileName }}"
+    dest="/tmp/{{ packageFileName }}"
+  when: docker_check_deb.rc == 1
+
+- name: Install Docker
+  apt: deb="/tmp/{{ packageFileName }}"
+  when: docker_check_deb.rc == 1
+
+- name: Docker utilities installed
+  copy:
+    src: docker-purge
+    dest: /usr/bin
+
+- name: docker-py installed
+  pip: name="docker-py" state=present

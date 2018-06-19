@@ -1,0 +1,4 @@
+- name: is installed
+  apt:
+    name: mc
+    update_cache: yes

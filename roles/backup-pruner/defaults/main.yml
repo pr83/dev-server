@@ -1,0 +1,19 @@
+image: any3w/backup-pruner:latest
+optimalCountConfig:
+storageType:
+s3AccessKey:
+s3SecretKey:
+s3Bucket:
+scanInterval:
+sendEmail:
+longestDelayBetweenEmails:
+smtpHostname:
+smtpPort:
+smtpDomain:
+smtpUser:
+smtpPassword:
+smtpEnableSsl:
+emailFrom:
+emailTo:
+emailSubject:
+doPrune:

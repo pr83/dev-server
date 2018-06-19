@@ -1,0 +1,4 @@
+- name: Python pip installed
+  apt:
+    name: python-pip
+    update_cache: yes
