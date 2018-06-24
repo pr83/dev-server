@@ -21,3 +21,4 @@ gitlabVars:
   additionalHostMachineHostnames:
     - sample-server.example.com
     - mail.sample-server.example.com
+    - minio.sample-server.example.com
