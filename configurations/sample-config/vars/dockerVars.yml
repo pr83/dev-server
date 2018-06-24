@@ -1,0 +1,3 @@
+dockerVars:
+  packageUrlBase: https://download.docker.com/linux/ubuntu/dists/xenial/pool/stable/amd64
+  packageFileName: docker-ce_17.12.0~ce-0~ubuntu_amd64.deb

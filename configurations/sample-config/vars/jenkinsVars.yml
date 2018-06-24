@@ -1,0 +1,32 @@
+jenkinsVars: {
+    ports: [
+      "1280:8080"
+    ],
+    volumes: [
+      "/srv/jenkins/data:/var/jenkins_home",
+      "/var/www/html/ylc:/var/jenkins_home/deployTargets/sample-web"
+    ],
+    jenkinsUsername: xx,
+    jenkinsPassword: xxx,
+    credentials:
+      [
+        {
+          id: xxx,
+          description: "Git",
+          username: xxx,
+          password: xxx
+        }
+      ],
+    projects:
+      [
+        {
+          id: "xxx",
+          name: "xxx",
+          gitUrl: "http://{{ inventory_hostname }}:1180/open-source/sample-web.git",
+          gitBranch: "master",
+          gitCredentialsId: "xxx",
+          gitPollCron: "*/2 * * * *",
+          buildScript: "npm install && gulp && rm -fr /var/jenkins_home/deployTargets/xxx/* && cp -r dist/site/* /var/jenkins_home/deployTargets/xxx"
+        }
+      ]
+}

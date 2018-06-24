@@ -1,0 +1,19 @@
+backupPrunerVars:
+  optimalCountConfig: "1d: 1, 3d: 2, 10d: 5, 30d: 10, 90d: 12, 365d: 15"
+  storageType: S3
+  s3AccessKey: 
+  s3SecretKey: 
+  s3Bucket: 
+  scanInterval: 30m
+  sendEmail: true
+  longestDelayBetweenEmails: 2h
+  smtpHostname: 
+  smtpPort: 465
+  smtpDomain: 
+  smtpUser: 
+  smtpPassword: 
+  smtpEnableSsl: true
+  emailFrom: 
+  emailTo: 
+  emailSubject: Backup pruner results
+  doPrune: true

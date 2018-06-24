@@ -1,0 +1,2 @@
+[main]
+sample-server.example.com ansible_connection=ssh ansible_ssh_user=admin ansible_ssh_pass=S3cre1 ansible_become=true ansible_become_user=root ansible_become_pass=S3cre1

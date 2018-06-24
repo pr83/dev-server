@@ -12,3 +12,4 @@ smtp:
   user: admin@example.com
   password: Pas$$w0rd
   useTls: true
+additionalHostMachineHostnames: []

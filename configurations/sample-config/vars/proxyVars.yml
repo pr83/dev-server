@@ -1,0 +1,6 @@
+proxyVars:
+  proxyHttpsPort: 443
+  servers:
+    - name: git
+      subdomain: git
+      httpPort: 1180

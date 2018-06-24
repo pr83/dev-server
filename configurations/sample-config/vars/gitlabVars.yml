@@ -1,0 +1,23 @@
+gitlabVars:
+  ports:
+    - "11443:443"
+    - "1180:80"
+    - "1122:22"
+  baseDir: /srv/gitlab
+  backup:
+    provider: "AWS"
+    region: "eu-central-1"
+    accessKeyId: "AAA"
+    secretAccessKey: "xxx"
+    uploadRemoteDirectory: "yyy"
+  baseUrl: "https://git.sample-server.example.com"
+  smtp:
+    hostname: mail.sample-server.example.com
+    domain: sample-server.example.com
+    port: 25
+    user: admin@sample-server.example.com
+    password: S3cre1
+    useTls: false
+  additionalHostMachineHostnames:
+    - sample-server.example.com
+    - mail.sample-server.example.com

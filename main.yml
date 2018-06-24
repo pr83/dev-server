@@ -1,27 +1,28 @@
 - hosts: main
   roles:
-    - {
-      role: users,
-      tags: users,
+    - role: users
+      tags: users
       users: "{{ usersVars.list }}"
-    }
-    - mc
-    - pip
-    - {
-      role: docker,
-      tags: docker,
-      packageUrlBase: "{{ dockerVars.packageUrlBase }}",
-      packageFileName: "{{ dockerVars.packageFileName }}",
-    }
-    - {
-      role: gitlab,
-      tags: gitlab,
-      ports: "{{ gitlabVars.ports }}",
-      baseDir: "{{ gitlabVars.baseDir }}",
-      backup: "{{ gitlabVars.backup }}",
-      baseUrl: "{{ gitlabVars.baseUrl }}",
+
+    - role: mc
+      tags: mc
+
+    - role: pip
+      tags: pip
+
+    - role: docker
+      tags: docker
+      packageUrlBase: "{{ dockerVars.packageUrlBase }}"
+      packageFileName: "{{ dockerVars.packageFileName }}"
+
+    - role: gitlab
+      tags: gitlab
+      ports: "{{ gitlabVars.ports }}"
+      baseDir: "{{ gitlabVars.baseDir }}"
+      backup: "{{ gitlabVars.backup }}"
+      baseUrl: "{{ gitlabVars.baseUrl }}"
       smtp: "{{ gitlabVars.smtp }}"
-    }
+      additionalHostMachineHostnames: "{{ gitlabVars.additionalHostMachineHostnames }}"
 
     - role: backup-pruner
       tags: backup-pruner
@@ -44,21 +45,19 @@
       emailSubject: "{{ backupPrunerVars.emailSubject }}"
       doPrune: "{{ backupPrunerVars.doPrune }}"
 
-    - {
-      role: apache,
-      tags: apache,
+    - role: apache
+      tags: apache
       directories: "{{ apacheVars.directories }}"
-    }
-    - {
-        role: jenkins,
-        tags: jenkins,
-        jenkinsUsername: "{{ jenkinsVars.jenkinsUsername }}",
-        jenkinsPassword: "{{ jenkinsVars.jenkinsPassword }}",
-        credentials: "{{ jenkinsVars.credentials }}",
-        projects: "{{ jenkinsVars.projects }}",
-        ports: "{{ jenkinsVars.ports }}",
-        volumes: "{{ jenkinsVars.volumes }}"
-    }
+
+    - role: jenkins
+      tags: jenkins
+      jenkinsUsername: "{{ jenkinsVars.jenkinsUsername }}"
+      jenkinsPassword: "{{ jenkinsVars.jenkinsPassword }}"
+      credentials: "{{ jenkinsVars.credentials }}"
+      projects: "{{ jenkinsVars.projects }}"
+      ports: "{{ jenkinsVars.ports }}"
+      volumes: "{{ jenkinsVars.volumes }}"
+
     - role: mail
       tags: mail
       sslSmtpClientPort: "{{ mailVars.sslSmtpClientPort }}"

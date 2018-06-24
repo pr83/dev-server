@@ -8,6 +8,13 @@
     src: docker/Dockerfile
     dest: /tmp/gitlab-docker/Dockerfile
 
+- name: Entry script exists
+  template:
+    src: docker/run.sh
+    dest: /tmp/gitlab-docker/run.sh
+  with_items:
+    - additionalHostMachineHostnames: "{{ additionalHostMachineHostnames }}"
+
 - name: Docker image built
   docker_image:
     name: any3w.com/gitlab

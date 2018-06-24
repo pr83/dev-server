@@ -1,0 +1,12 @@
+mailVars:
+  sslSmtpClientPort: 465
+  sslImapPort: 993
+  smtpOtherMailServersPort: 25
+  hostname: mail
+  domainname: "{{ inventory_hostname }}"
+  adminUser: admin
+  accounts:
+    - user: admin
+      password: S3cre1
+    - user: testuser
+      password: S3cre1
