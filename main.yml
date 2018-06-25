@@ -15,6 +15,12 @@
       packageUrlBase: "{{ dockerVars.packageUrlBase }}"
       packageFileName: "{{ dockerVars.packageFileName }}"
 
+    - role: minio
+      tags: minio
+      accessKey: "{{ minioVars.accessKey }}"
+      secretKey: "{{ minioVars.secretKey }}"
+      buckets: "{{ minioVars.buckets }}"
+
     - role: gitlab
       tags: gitlab
       ports: "{{ gitlabVars.ports }}"
@@ -78,6 +84,7 @@
     - "{{ varsDirectory }}/usersVars.yml"
     - "{{ varsDirectory }}/apacheVars.yml"
     - "{{ varsDirectory }}/dockerVars.yml"
+    - "{{ varsDirectory }}/minioVars.yml"
     - "{{ varsDirectory }}/gitlabVars.yml"
     - "{{ varsDirectory }}/backupPrunerVars.yml"
     - "{{ varsDirectory }}/mailVars.yml"

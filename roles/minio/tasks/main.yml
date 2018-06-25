@@ -1,0 +1,19 @@
+- name: Buckets created
+  file:
+    path: "{{ dataDirectory }}/{{ item }}"
+    state: directory
+  with_items:
+    "{{ buckets }}"
+
+- name: Container is running
+  docker_container:
+    image: "{{ image }}"
+    name: minio
+    state: started
+    published_ports: "{{ ports }}"
+    volumes: "{{ volumes }}"
+    restart_policy: always
+    command: "server /data"
+    env:
+      MINIO_ACCESS_KEY: "{{ accessKey }}"
+      MINIO_SECRET_KEY: "{{ secretKey }}"

@@ -1,0 +1,8 @@
+image: minio/minio
+dataDirectory: /srv/minio/data
+listenOnPort: 9000
+ports: "{{ listenOnPort }}:9000"
+volumes: "/srv/minio/data:/data"
+accessKey:
+secretKey:
+buckets: []

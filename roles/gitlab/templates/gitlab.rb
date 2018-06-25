@@ -5,6 +5,16 @@ gitlab_rails['backup_upload_connection'] = {
   'aws_access_key_id' => '{{ item.backup.accessKeyId }}',
   'aws_secret_access_key' => '{{ item.backup.secretAccessKey }}'
 }
+
+{% if item.backup.host is defined %}
+  gitlab_rails['backup_upload_connection']['host'] = "{{ item.backup.host }}"
+{% endif %}
+
+{% if item.backup.endpoint is defined %}
+  gitlab_rails['backup_upload_connection']['endpoint'] = "{{ item.backup.endpoint }}"
+  gitlab_rails['backup_upload_connection']['path_style'] = true
+{% endif %}
+
 gitlab_rails['backup_upload_remote_directory'] = '{{ item.backup.uploadRemoteDirectory }}'
 
 # Base URL

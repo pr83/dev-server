@@ -4,3 +4,6 @@ proxyVars:
     - name: git
       subdomain: git
       httpPort: 1180
+    - name: minio
+      subdomain: minio
+      httpPort: 9000

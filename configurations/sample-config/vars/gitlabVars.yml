@@ -7,9 +7,13 @@ gitlabVars:
   backup:
     provider: "AWS"
     region: "eu-central-1"
-    accessKeyId: "AAA"
-    secretAccessKey: "xxx"
-    uploadRemoteDirectory: "yyy"
+    accessKeyId: SAMPLEACCESSKEY
+    secretAccessKey: secretKey
+    uploadRemoteDirectory: git-backups
+    minute: 0,5,8,10,20,30,31,32,33,34,40,50
+    hour: 16,17,18,19
+    host: minio.sample-server.example.com
+    endpoint: "http://minio.sample-server.example.com:9000"
   baseUrl: "https://git.sample-server.example.com"
   smtp:
     hostname: mail.sample-server.example.com

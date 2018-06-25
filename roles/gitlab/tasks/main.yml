@@ -45,14 +45,14 @@
       baseUrl: "{{ baseUrl }}"
   no_log: true
     
-- name: Backups configured for reboot
+- name: Regular backups configured
   cron:
     name: "gitlab_backups_on_reboot"
-    minute: "50"
-    hour: "1"
+    minute: "{{ backup.minute }}"
+    hour: "{{ backup.hour }}"
     job: "docker exec -t gitlab gitlab-rake gitlab:backup:create"
     
-- name: Regular backups configured
+- name: Backups configured for reboot
   cron:
     name: "regular_gitlab_backups"
     special_time: reboot

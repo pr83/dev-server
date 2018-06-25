@@ -1,0 +1,5 @@
+minioVars:
+  accessKey: SAMPLEACCESSKEY
+  secretKey: secretKey
+  buckets:
+    - git-backups
