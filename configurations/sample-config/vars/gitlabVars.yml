@@ -10,8 +10,8 @@ gitlabVars:
     accessKeyId: SAMPLEACCESSKEY
     secretAccessKey: secretKey
     uploadRemoteDirectory: git-backups
-    minute: 0,5,8,10,20,30,31,32,33,34,40,50
-    hour: 16,17,18,19
+    minute: 0,15,30,45
+    hour: 0,2,4,6,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22
     host: minio.sample-server.example.com
     endpoint: "http://minio.sample-server.example.com:9000"
   baseUrl: "https://git.sample-server.example.com"

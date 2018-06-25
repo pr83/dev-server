@@ -62,6 +62,7 @@
   copy:
     src: restore.sh
     dest: /srv/gitlab
+    mode: u+x
 
 - name: Fully up and running - triggering restore is safe
   shell: until docker exec gitlab gitlab-rake gitlab:check; do sleep 1; done
