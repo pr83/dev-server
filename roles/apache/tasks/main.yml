@@ -10,3 +10,17 @@
     owner: www-data
     group: www-data
   with_items: "{{ directories }}"
+
+- name: apache2 listen on port 8081
+  lineinfile:
+    dest: /etc/apache2/ports.conf
+    regexp: "^Listen 80"
+    line: "Listen 8081"
+    state: present
+  register: apache_listen_port
+
+- name: restart apache2
+  service:
+    name: apache2
+    state: restarted
+  when: apache_listen_port.changed

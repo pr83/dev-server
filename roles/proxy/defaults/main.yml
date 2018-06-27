@@ -1,3 +1,4 @@
 proxyHostname: example.com
 proxyHttpsPort: 443
+proxyHttpPort: 80
 servers: []

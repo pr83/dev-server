@@ -62,7 +62,8 @@
       credentials: "{{ jenkinsVars.credentials }}"
       projects: "{{ jenkinsVars.projects }}"
       ports: "{{ jenkinsVars.ports }}"
-      volumes: "{{ jenkinsVars.volumes }}"
+      additionalVolumes: "{{ jenkinsVars.additionalVolumes }}"
+      additionalHostMachineHostnames: "{{ jenkinsVars.additionalHostMachineHostnames }}"
 
     - role: mail
       tags: mail

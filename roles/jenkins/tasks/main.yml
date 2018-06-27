@@ -8,6 +8,13 @@
     src: docker/Dockerfile
     dest: /tmp/jenkins-docker/Dockerfile
 
+- name: Entry script exists
+  template:
+    src: docker/run.sh
+    dest: /tmp/jenkins-docker/run.sh
+  with_items:
+    - additionalHostMachineHostnames: "{{ additionalHostMachineHostnames }}"
+
 - name: Dockerfile exists - default-user.groovy
   copy:
     src: docker/default-user.groovy

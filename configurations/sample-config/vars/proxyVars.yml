@@ -4,6 +4,12 @@ proxyVars:
     - name: git
       subdomain: git
       httpPort: 1180
+    - name: jenkins
+      subdomain: jenkins
+      httpPort: 1280
     - name: minio
       subdomain: minio
       httpPort: 9000
+    - name: www
+      subdomain: www
+      httpPort: 8081

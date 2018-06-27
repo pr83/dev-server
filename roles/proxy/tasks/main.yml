@@ -22,5 +22,7 @@
     image: any3w.com/nginx
     name: nginx
     state: started
-    published_ports: "{{ proxyHttpsPort }}:443"
+    published_ports:
+      - "{{ proxyHttpsPort }}:443"
+      - "{{ proxyHttpPort }}:80"
     restart_policy: always

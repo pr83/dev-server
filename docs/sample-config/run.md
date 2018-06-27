@@ -1,0 +1,1 @@
+./run.sh configurations/sample-config sample-server --tags gitlab --extra-vars "gitlabRestoreDir=docs/sample-config gitlabRestoreFrom=1530037521_2018_06_26_11.0.0-rc13"

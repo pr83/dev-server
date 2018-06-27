@@ -1,32 +1,23 @@
-jenkinsVars: {
-    ports: [
-      "1280:8080"
-    ],
-    volumes: [
-      "/srv/jenkins/data:/var/jenkins_home",
-      "/var/www/html/ylc:/var/jenkins_home/deployTargets/sample-web"
-    ],
-    jenkinsUsername: xx,
-    jenkinsPassword: xxx,
+jenkinsVars:
+    ports:
+      - "1280:8080"
+    additionalVolumes:
+      - "/var/www/html/sample-web:/var/jenkins_home/deployTargets/sample-web"
+    jenkinsUsername: testuser
+    jenkinsPassword: S3cre1Passw0rd
     credentials:
-      [
-        {
-          id: xxx,
-          description: "Git",
-          username: xxx,
-          password: xxx
-        }
-      ],
+      - id: testuser-git
+        description: "GitLab: testuser"
+        username: testuser
+        password: S3cre1Passw0rd
     projects:
-      [
-        {
-          id: "xxx",
-          name: "xxx",
-          gitUrl: "http://{{ inventory_hostname }}:1180/open-source/sample-web.git",
-          gitBranch: "master",
-          gitCredentialsId: "xxx",
-          gitPollCron: "*/2 * * * *",
-          buildScript: "npm install && gulp && rm -fr /var/jenkins_home/deployTargets/xxx/* && cp -r dist/site/* /var/jenkins_home/deployTargets/xxx"
-        }
-      ]
-}
+      - id: "sample-web"
+        name: "Sample web"
+        gitUrl: "http://{{ inventory_hostname }}:1180/open-source/sample-web.git"
+        gitBranch: "master"
+        gitCredentialsId: "testuser-git"
+        gitPollCron: "*/2 * * * *"
+        buildScript: "npm install && gulp && rm -fr /var/jenkins_home/deployTargets/sample-web/* && cp -r dist/* /var/jenkins_home/deployTargets/sample-web"
+    additionalHostMachineHostnames:
+      - mail.sample-server.example.com
+      - sample-server.example.com
