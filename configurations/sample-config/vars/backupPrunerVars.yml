@@ -1,19 +1,20 @@
 backupPrunerVars:
-  optimalCountConfig: "1d: 1, 3d: 2, 10d: 5, 30d: 10, 90d: 12, 365d: 15"
+  optimalCountConfig: "1h: 1, 5h: 2, 10h: 4, 24h: 6, 48h: 8, 240d: 15"
   storageType: S3
-  s3AccessKey: 
-  s3SecretKey: 
-  s3Bucket: 
+  s3AccessKey: SAMPLEACCESSKEY
+  s3SecretKey: secretKey
+  s3Bucket: git-backups
+  s3Endpoint: http://minio.sample-server.example.com:9000
   scanInterval: 30m
   sendEmail: true
   longestDelayBetweenEmails: 2h
-  smtpHostname: 
-  smtpPort: 465
-  smtpDomain: 
-  smtpUser: 
-  smtpPassword: 
-  smtpEnableSsl: true
-  emailFrom: 
-  emailTo: 
-  emailSubject: Backup pruner results
+  smtpHostname: mail.sample-server.example.com
+  smtpPort: 25
+  smtpDomain: sample-server.example.com
+  smtpUser: admin@sample-server.example.com
+  smtpPassword: S3cre1
+  smtpEnableSsl: false
+  emailFrom: admin@sample-server.example.com
+  emailTo: admin@sample-server.example.com
+  emailSubject: Backup pruner results (sample server)
   doPrune: true

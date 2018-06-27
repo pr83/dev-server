@@ -13,3 +13,6 @@ proxyVars:
     - name: www
       subdomain: www
       httpPort: 8081
+    - name: default
+      subdomain: ""
+      httpPort: 8081

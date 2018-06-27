@@ -4,6 +4,7 @@ storageType:
 s3AccessKey:
 s3SecretKey:
 s3Bucket:
+s3Endpoint:
 scanInterval:
 sendEmail:
 longestDelayBetweenEmails:

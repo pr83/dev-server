@@ -4,12 +4,14 @@
     name: backup-pruner
     state: started
     privileged: yes
+    network_mode: host
     env:
       OPTIMAL_COUNT_CONFIG: "{{ optimalCountConfig }}"
       STORAGE_TYPE: "{{ storageType }}"
       S3_ACCESS_KEY: "{{ s3AccessKey }}"
       S3_SECRET_KEY: "{{ s3SecretKey }}"
       S3_BUCKET: "{{ s3Bucket }}"
+      S3_ENDPOINT: "{{ s3Endpoint }}"
       SCAN_INTERVAL: "{{ scanInterval }}"
       SEND_EMAIL: "{{ sendEmail }}"
       LONGEST_DELAY_BETWEEN_EMAILS: "{{ longestDelayBetweenEmails }}"
