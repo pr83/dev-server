@@ -18,6 +18,3 @@ jenkinsVars:
         gitCredentialsId: "testuser-git"
         gitPollCron: "*/2 * * * *"
         buildScript: "npm install && gulp && rm -fr /var/jenkins_home/deployTargets/sample-web/* && cp -r dist/* /var/jenkins_home/deployTargets/sample-web"
-    additionalHostMachineHostnames:
-      - mail.sample-server.example.com
-      - sample-server.example.com

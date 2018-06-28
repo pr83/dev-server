@@ -5,8 +5,6 @@ additionalVolumes: []
 
 volumes: "{{ additionalVolumes + ['/srv/jenkins/data:/var/jenkins_home'] }}"
 
-additionalHostMachineHostnames: []
-
 jenkinsUsername: admin
 jenkinsPassword: admin
 

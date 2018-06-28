@@ -22,7 +22,3 @@ gitlabVars:
     user: admin@sample-server.example.com
     password: S3cre1
     useTls: false
-  additionalHostMachineHostnames:
-    - sample-server.example.com
-    - mail.sample-server.example.com
-    - minio.sample-server.example.com
