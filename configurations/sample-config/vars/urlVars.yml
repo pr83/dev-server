@@ -1,0 +1,6 @@
+baseUrl: sample-server.example.com
+urlVars:
+  base: "{{ baseUrl }}"
+  mail: "mail.{{ baseUrl }}"
+  git: "git.{{ baseUrl }}"
+  jenkins: "jenkins.{{ baseUrl }}"

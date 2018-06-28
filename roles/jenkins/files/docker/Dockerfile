@@ -19,8 +19,4 @@ ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 
 COPY default-user.groovy /usr/share/jenkins/ref/init.groovy.d/
 
-COPY run.sh /usr/bin/run.sh
-
 VOLUME /var/jenkins_home
-
-ENTRYPOINT ["/bin/bash", "/usr/bin/run.sh"]

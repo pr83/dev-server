@@ -1,4 +1,12 @@
 - hosts: main
+
+  pre_tasks:
+    - name: Set additional hosts
+      tags: always
+      set_fact:
+        additionalHosts: "{{ additionalHosts | default({}) | combine({urlVars[item]: ansible_default_ipv4.address}) }}"
+      with_items: "{{ urlVars }}"
+
   roles:
     - role: users
       tags: users
@@ -82,6 +90,7 @@
       servers: "{{ proxyVars.servers }}"
 
   vars_files:
+    - "{{ varsDirectory }}/urlVars.yml"
     - "{{ varsDirectory }}/jenkinsVars.yml"
     - "{{ varsDirectory }}/usersVars.yml"
     - "{{ varsDirectory }}/apacheVars.yml"
