@@ -23,6 +23,16 @@
       packageUrlBase: "{{ dockerVars.packageUrlBase }}"
       packageFileName: "{{ dockerVars.packageFileName }}"
 
+    - role: mail
+      tags: mail
+      sslSmtpClientPort: "{{ mailVars.sslSmtpClientPort }}"
+      sslImapPort: "{{ mailVars.sslImapPort }}"
+      smtpOtherMailServersPort: "{{ mailVars.smtpOtherMailServersPort }}"
+      accounts: "{{ mailVars.accounts }}"
+      hostname: "{{ mailVars.hostname }}"
+      domainname: "{{ mailVars.domainname }}"
+      adminUser: "{{ mailVars.adminUser }}"
+
     - role: minio
       tags: minio
       accessKey: "{{ minioVars.accessKey }}"
@@ -73,16 +83,6 @@
       ports: "{{ jenkinsVars.ports }}"
       additionalVolumes: "{{ jenkinsVars.additionalVolumes }}"
       additionalHostMachineHostnames: "{{ jenkinsVars.additionalHostMachineHostnames }}"
-
-    - role: mail
-      tags: mail
-      sslSmtpClientPort: "{{ mailVars.sslSmtpClientPort }}"
-      sslImapPort: "{{ mailVars.sslImapPort }}"
-      smtpOtherMailServersPort: "{{ mailVars.smtpOtherMailServersPort }}"
-      accounts: "{{ mailVars.accounts }}"
-      hostname: "{{ mailVars.hostname }}"
-      domainname: "{{ mailVars.domainname }}"
-      adminUser: "{{ mailVars.adminUser }}"
 
     - role: proxy
       tags: proxy

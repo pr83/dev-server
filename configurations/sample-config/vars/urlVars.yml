@@ -4,3 +4,4 @@ urlVars:
   mail: "mail.{{ baseUrl }}"
   git: "git.{{ baseUrl }}"
   jenkins: "jenkins.{{ baseUrl }}"
+  minio: "minio.{{ baseUrl }}"

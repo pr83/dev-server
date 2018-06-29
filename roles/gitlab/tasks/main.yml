@@ -83,3 +83,4 @@
       user: "{{ smtp.user }}"
       password: "{{ smtp.password }}"
       useTls: "{{ smtp.useTls }}"
+  no_log: true

@@ -5,9 +5,9 @@ backupPrunerVars:
   s3SecretKey: secretKey
   s3Bucket: git-backups
   s3Endpoint: http://minio.sample-server.example.com:9000
-  scanInterval: 30m
+  scanInterval: 1m
   sendEmail: true
-  longestDelayBetweenEmails: 2h
+  longestDelayBetweenEmails: 5m
   smtpHostname: mail.sample-server.example.com
   smtpPort: 25
   smtpDomain: sample-server.example.com
