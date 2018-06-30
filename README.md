@@ -73,7 +73,7 @@ and run the following command:
 
 What exactly this command does will be explained later.
 
-It might take a while for everythis to get set up. If you don't see any apparent errors, try and hit
+It might take a while for everything to get set up. If you don't see any apparent errors, try and hit
 these URLs (they are using a self-signed certificate for HTTPS, so you will need to allow access in your browser):
 
  * https://git.sample-server.example.com (`testuser@sample-server.example.com` / `S3cre1Passw0rd`)
@@ -91,7 +91,7 @@ these URLs (they are using a self-signed certificate for HTTPS, so you will need
  File `sample-config/vars/usersVars.yml` specifies users which will be created. They will be automatically
  added to the sudoer file. Passwords are not set for them.
  
- You can re-run the user creating using this command:
+ You can re-run the user creation using this command:
  
  `./run.sh configurations/sample-config sample-server --tags users`
  
@@ -105,14 +105,14 @@ You can re-run the installation using this command:
   
 ### Installing Docker
 
-File `sample-config/vars/dockerVars.yml` specifies the URL path and URL file name pf the Docker image
+File `sample-config/vars/dockerVars.yml` specifies the URL path and URL file name of the Docker image
 to install.
 
 You can re-run the installation using this command:
  
 `./run.sh configurations/sample-config sample-server --tags docker`
 
-Note that in order to control Docker by Ansible, an additional Ansible package mus be installed. Since
+Note that in order to control Docker by Ansible, an additional Ansible package must be installed. Since
 Ansible is written in Python, the `pip` tool (package manager for Python) must be installed.
 
 You can re-run the installation of `pip` using this command:
@@ -184,13 +184,13 @@ Subdirectories you might be interested in:
  
 I don't recommend to edit `/srv/gitlab/config/gitlab.rb` directly. This file is generated automatically by
 the Dev-server Ansible playbook, so it would be overwritten if you ran the playbook. Rather tweak the
-playbook itself. The template is in `<playbook_root>./roles/gitlab/templates/gitlab.rb`
+playbook itself. The template is in `<playbook_root>/roles/gitlab/templates/gitlab.rb`
 
 #### sending emails
 
 GitLab can be configured to send emails when for example a new ticket is created
 in the issue tracker. The `smtp` section of the configuration file defines all
-it needs to be able to do so. In this sample configuration the SMTP server the one
+it needs to be able to do so. In this sample configuration the SMTP server is the one
 set up by this Ansible playbook (see above).
 
 #### regular backups
@@ -210,7 +210,7 @@ If you are using S3 on an S3-compatible server, set `host` to the hostname and
 Parameters `provider`, `region`, `accessKeyId` and `secretAccessKey` are standard
 S3 parameters. If you are hosting your own S3-compatible server, read the documentation
 to your server to see what `provider` and `region` shall be set to (for Minio
-`AWS` and `eu-central-1` work fine).
+`AWS` and `eu-central-1` respectively work fine).
 
 Parameters `minute` and `hour` define when a backup should be taken. They will be
 passed to cron.
@@ -219,26 +219,30 @@ passed to cron.
 
 If you need to restore GitLab from an existing backup, run the playbook like this:
 
-`./run.sh <config_directory> <host_config_name> --extra-vars "gitlabRestoreDir=<local_directory_with_backups> gitlabRestoreFrom=<backup_file_base_name>"`
+`./run.sh <config_directory> <host_config_name> --tags gitlab --extra-vars "gitlabRestoreDir=<local_directory_with_backups> gitlabRestoreFrom=<backup_file_base_name>"`
 
 Parameters `<config_directory>` and `<host_config_name>` are the same as described above.
-Parameter `<local_directory_with_backups>` is path (relative or absolute) to the directory where you have
+Parameter `<local_directory_with_backups>` is a path (relative or absolute) to the directory where you have
 the TAR file with the backup you wish to restore GitLab from.
 Parameter `<backup_file_base_name>` is the name of the backup file with the trailing
 `_gitlab_backup.tar` bit stripped off.
 
-The Dev-server playbook ships with a sample TAR file with a backup. Once restored, the GitLab will contain
+The Dev-server playbook ships with a sample TAR file with a backup. Once restored, GitLab will contain
 one user account (email: `testuser@sample-server.example.com`, password: `S3cre1Passw0rd`).
 This backup contains a single Git repository. Further in this document a Jenkins setup
-is described.
+is described which will clone this repository, build and deploy.
 
 ### Jenkins setup
 
 For Jenkins there's again a lot to configure:
 
- * Jenkins itself (UI and user account for the UI),
+ * Jenkins itself (UI and a user account for the UI),
  * credentials used for cloning projects from Git,
  * jobs for building and deploying the projects.
+ 
+You can re-run the installation using this command:
+  
+`./run.sh configurations/sample-config sample-server --tags jenkins`
  
 #### ports
  
@@ -279,12 +283,12 @@ to copy the generated artifacts to the host machine (see above).
 
 You can also define an arbitrary `description`.
 
-Then the Git URL
+Then specify the Git URL
 (`gitUrl`), branch (`gitBranch`) and the ID of the credentials entry defined earlier
 (`gitCredentialsId`).
 
 The last two parameters define how to build and deploy the project.
-Parameter `gitPollCron` specifies is a cron expression defining when Jenkins should poll
+Parameter `gitPollCron` is a cron expression defining when Jenkins should poll
 Git to see if there were any changes and if that's the case, to update the project
 from Git and trigger a build. Parameter `buildScript` is a piece of shell code
 whose purpose is to build and deploy the project.
@@ -303,19 +307,27 @@ keep the number of the backups reasonably small.
 You can find an example Backup pruner configuration in
 `configurations/sample-config/vars/backupPrunerVars.yml`.
 The parameter names correspond to the environment variables as described in
-Backup pruner [Official documentation](https://github.com/pr83/backup-pruner).
+Backup pruner [official documentation](https://github.com/pr83/backup-pruner).
 In the sample configuration we are connecting to Minio on the virtual machine.
 To connect to Amazon, do not mention the `s3Endpoint` parameter.
 
+You can re-run the installation using this command:
+  
+`./run.sh configurations/sample-config sample-server --tags backup-pruner`
+
 ### Proxy setup
 
-The services we installed to our sample server are available on nice URLs
+The services we installed to our sample server are available on HTTPS URLs
 such as https://git.sample-server.example.com, but looking to the configuration files
 for the individual services it turns out that they are actually set up to be
-available on URLs with port numbers, such as http://git.sample-server.example.com:1180
+available on HTTP URLs with port numbers, such as http://sample-server.example.com:1180
 (and they actually are, as you can easily try).
 
-The mapping of the "nice" URLs onto the URLs with port numbers is defined in
+The mapping of the HTTPS URLs onto the HTTP URLs with port numbers is defined in
 `configurations/sample-config/vars/proxyVars.yml`. The file should be pretty
 straightforward. It configures an [nginx](https://www.nginx.com/) acting
 as a [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy).
+
+You can re-run the installation using this command:
+  
+`./run.sh configurations/sample-config sample-server --tags proxy`
