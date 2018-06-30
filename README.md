@@ -96,10 +96,58 @@ these URLs (they are using a self-signed certificate for HTTPS, so you will need
  
  ### Installing additional packages
  
- As a part of the machine setup, Midnight Commander is installed.
+As a part of the machine setup, Midnight Commander is installed.
  
- You can re-run the installation using this command:
+You can re-run the installation using this command:
  
-  `./run.sh configurations/sample-config sample-server --tags mc`
+`./run.sh configurations/sample-config sample-server --tags mc`
   
-### 
+### Installing Docker
+
+File `sample-config/vars/dockerVars.yml` specifies the URL path and URL file name pf the Docker image
+to install.
+
+You can re-run the installation using this command:
+ 
+`./run.sh configurations/sample-config sample-server --tags docker`
+
+Note that in order to control Docker by Ansible, an additional Ansible package mus be installed. Since
+Ansible is written in Python, the `pip` tool (package manager for Python) must be installed.
+
+You can re-run the installation of `pip` using this command:
+ 
+`./run.sh configurations/sample-config sample-server --tags pip`
+
+### Settings up emails (IMAP, SMTP)
+
+File `sample-config/vars/mailVars.yml` specifies parameters for the IMAP and SMTP servers.
+
+**A note to parameter `domainname`:**
+This is the part of the email addresses to the right of the `@` sign.
+Note that in Ansible `{{ inventory_hostname }}` is the hostname of the machine being set up, as
+defined in the inventory file (in the sample configuration this is `sample-server.example.com`).
+So for the accounts created in the sample configuration the email addresses will be
+`admin@sample-server.example.com` and `testuser@sample-server.example.com`.
+
+The SMTP and IMAP servers themselves will be accessible on `mail.sample-server.example.com`
+(the subdomain is defined in parameter `hostname`).
+
+You can re-run the installation using this command:
+ 
+`./run.sh configurations/sample-config sample-server --tags mail`
+
+### Setting up Minio (S3 storage)
+
+[Minio](https://www.minio.io/) is an S3-compatible server. It provides the same API
+as Amazon S3 does, but it can be hosted on your own server.
+
+Dev-server uses Minio as a storage for GitLab backups (see later).
+
+File `sample-config/vars/minioVars.yml` defines the access and secret key and a list of buckets.
+
+You can re-run the installation using this command:
+  
+`./run.sh configurations/sample-config sample-server --tags minio`
+
+### Setting up GitLab
+
