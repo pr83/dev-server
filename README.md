@@ -47,7 +47,7 @@ It is run like this:
 
 `./run.sh <config_directory> <host_config_name> <ansible_extra_params>`
 
-Parameter `<config_directory>` is a directory with configuration file;
+Parameter `<config_directory>` is a directory with configuration files;
 the configuration files define for example the port numbers or subdomains
 on which the various services will be available, user names and passwords for these
 services etc. The Dev-server playbook ships with a sample configuration
