@@ -46,7 +46,6 @@
       backup: "{{ gitlabVars.backup }}"
       baseUrl: "{{ gitlabVars.baseUrl }}"
       smtp: "{{ gitlabVars.smtp }}"
-      additionalHostMachineHostnames: "{{ gitlabVars.additionalHostMachineHostnames }}"
 
     - role: backup-pruner
       tags: backup-pruner
@@ -82,7 +81,6 @@
       projects: "{{ jenkinsVars.projects }}"
       ports: "{{ jenkinsVars.ports }}"
       additionalVolumes: "{{ jenkinsVars.additionalVolumes }}"
-      additionalHostMachineHostnames: "{{ jenkinsVars.additionalHostMachineHostnames }}"
 
     - role: proxy
       tags: proxy
