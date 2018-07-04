@@ -54,7 +54,7 @@
       s3AccessKey: "{{ backupPrunerVars.s3AccessKey }}"
       s3SecretKey: "{{ backupPrunerVars.s3SecretKey }}"
       s3Bucket: "{{ backupPrunerVars.s3Bucket }}"
-      s3Endpoint: "{{ backupPrunerVars.s3Endpoint }}"
+      s3Endpoint: "{{ backupPrunerVars.s3Endpoint | default('') }}"
       scanInterval: "{{ backupPrunerVars.scanInterval }}"
       sendEmail: "{{ backupPrunerVars.sendEmail }}"
       longestDelayBetweenEmails: "{{ backupPrunerVars.longestDelayBetweenEmails }}"
